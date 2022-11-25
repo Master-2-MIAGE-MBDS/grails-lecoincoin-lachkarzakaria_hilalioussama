@@ -16,7 +16,6 @@
 </sec:ifAnyGranted>
         </ul>
     </div>
-<sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_MODO">
     <table class="table">
         <thead>
         <tr>
@@ -28,7 +27,7 @@
         </tr>
         </thead>
         <tbody>
-        <g:each var="a" in="${ Annonce.findAll() }">
+        <g:each var="a" in="${ annonceList }">
             <tr>
                 <th scope="row"><a href="/user/show/${a.getId()}" style="text-decoration: none;color: blue">${a.getTitle()}</a></th>
                 <td>${a.getDescription()}</td>
@@ -39,40 +38,10 @@
                         <br>
                     </g:each>
                 </td>
-                <td><a href="/user/show/${a.getAuthor().getId()}" style="text-decoration: none;color: blue">${a.getAuthor()}</a></td>
+                <td><g:link controller="user" action="show" id="${a.getAuthor().getId()}" style="text-decoration: none;color: blue">${a.getAuthor().username}</g:link></td>
             </tr>
         </g:each>
         </tbody>
     </table>
-</sec:ifAnyGranted>
-<sec:ifAnyGranted roles="ROLE_CLIENT">
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Titre</th>
-            <th scope="col">Description</th>
-            <th scope="col">Active</th>
-            <th scope="col">Illustrations</th>
-            <th scope="col">Authon</th>
-        </tr>
-        </thead>
-        <tbody>
-        <g:each var="a" in="${ Annonce.findByAuthor(sec.loggedInUserInfo()) }">
-            <tr>
-                <th scope="row"><a href="/user/show/${a.getId()}" style="text-decoration: none;color: blue">${a.getTitle()}</a></th>
-                <td>${a.getDescription()}</td>
-                <td>${a.getPrice()}</td>
-                <td>
-                    <g:each var="ul" in="${ a.getIllustrations() }">
-                        <a href="/illustration/show/${ul.getId()}" style="text-decoration: none;color: blue">${a.getTitle()}</a>
-                        <br>
-                    </g:each>
-                </td>
-                <td><a href="/user/show/${a.getAuthor().getId()}" style="text-decoration: none;color: blue">${a.getAuthor()}</a></td>
-            </tr>
-        </g:each>
-        </tbody>
-    </table>
-</sec:ifAnyGranted>
 </body>
 </html>

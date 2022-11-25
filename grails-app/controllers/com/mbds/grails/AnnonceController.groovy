@@ -1,5 +1,6 @@
 package com.mbds.grails
 
+import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
@@ -8,12 +9,19 @@ import static org.springframework.http.HttpStatus.*
 class AnnonceController {
 
     AnnonceService annonceService
+    SpringSecurityService springSecurityService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond annonceService.list(params), model:[annonceCount: annonceService.count()]
+        User user=springSecurityService.getCurrentUser()
+        if(user.getAuthorities().authority.join(',')=="ROLE_ADMIN" || user.getAuthorities().authority.join(',')=="ROLE_MODO")
+        {
+            respond annonceService.list(params), model:[annonceCount: annonceService.count()]
+        }else{
+            respond user.getAnnonces().asList()
+        }
     }
 
     def show(Long id) {
