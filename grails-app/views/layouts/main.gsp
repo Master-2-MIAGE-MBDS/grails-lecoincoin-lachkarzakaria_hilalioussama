@@ -77,17 +77,14 @@
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 </ul>
 
-                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-                    <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-                </form>
-
                 <sec:ifLoggedIn>
                     <div class="dropdown text-end">
                         <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            <sec:loggedInUserInfo field="username"></sec:loggedInUserInfo>
                             <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
                         </a>
                         <ul class="dropdown-menu text-small">
-                            <li><g:link class="dropdown-item" controller="user">Profile</g:link></li>
+                            <li><g:link class="dropdown-item" controller="user"> Profile</g:link></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><g:link class="dropdown-item" controller="logout">Sign out</g:link></li>
                         </ul>
@@ -104,8 +101,6 @@
         <!-- Main Content -->
         <div id="content">
             <div class="container-fluid">
-
-
                 <!-- main -->
                 <g:layoutBody default="Grails"/>
 

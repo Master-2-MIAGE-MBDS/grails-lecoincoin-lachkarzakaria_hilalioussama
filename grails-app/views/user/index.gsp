@@ -17,6 +17,7 @@
     <thead>
     <tr>
         <th scope="col">#</th>
+        <th scope="col">Roles</th>
         <th scope="col">Username</th>
         <th scope="col">enabled</th>
         <th scope="col">accountExpired</th>
@@ -28,6 +29,7 @@
     <g:each var="u" in="${ User.findAll() }">
         <tr>
             <th scope="row">${u.getId()}</th>
+            <th scope="col">${u.getAuthorities().authority.join(',')}</th>
             <td><a href="/user/show/${u.getId()}" style="text-decoration: none;color: blue">${u.getUsername()}</a></td>
             <td>${u.getEnabled()}</td>
             <td>${u.getAccountExpired()}</td>
