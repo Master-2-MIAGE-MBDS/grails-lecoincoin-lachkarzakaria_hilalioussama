@@ -58,7 +58,7 @@
         </div>
         <li class="nav-item">
             <g:link class="nav-link" controller="annonce" ><span>annonces</span></g:link>
-            <sec:ifAnyGranted roles="ROLE_ADMIN , "><g:link class="nav-link" controller="user" ><span>Utilisateurs</span></g:link></sec:ifAnyGranted>
+            <sec:ifAnyGranted roles="ROLE_ADMIN , ROLE_MODO"><g:link class="nav-link" controller="user" ><span>Utilisateurs</span></g:link></sec:ifAnyGranted>
             <g:link class="nav-link" controller="illustration" ><span>Illustrations</span></g:link>
         </li>
     </sec:ifLoggedIn>

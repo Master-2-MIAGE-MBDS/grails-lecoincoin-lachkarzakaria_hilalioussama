@@ -5,7 +5,7 @@ import grails.converters.XML
 import grails.plugin.springsecurity.annotation.Secured
 import org.springframework.http.HttpMethod
 
-@Secured('ROLE_ADMIN')
+@Secured(['ROLE_ADMIN','ROLE_MODO','ROLE_CLIENT'])
 class ApiController {
 
     /**

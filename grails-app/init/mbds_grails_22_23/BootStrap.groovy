@@ -10,18 +10,21 @@ class BootStrap {
 
     def init = { servletContext ->
         def adminUserInstance = new User(username: "admin",password: "admin").save()
-        def adminUserInstance = new User(username: "Hasan",password: "modo").save()
+        def modo1 = new User(username: "Zakaria",password: "modo").save()
+        def modo2 = new User(username: "Oussama",password: "modo").save()
         def adminRole = new Role(authority: "ROLE_ADMIN").save()
         def modoRole = new Role(authority: "ROLE_MODO").save()
-        def userRole = new Role(authority: "ROLE_USER").save()
+        def clientRole = new Role(authority: "ROLE_CLIENT").save()
         UserRole.create(adminUserInstance, adminRole, true)
+        UserRole.create(modo1,modoRole,true)
+        UserRole.create(modo2,modoRole,true)
 
         // On boucle sur une liste de 5 prénoms
         ["Alice", "Bob", "Charly", "Denis", "Etienne"].each {
             String username ->
                 // On crée les utilisateurs associés
-                def userInstance = new User(username: username, password: "password")
-                userRole.create(userInstance,userRole,true)
+                def userInstance = new User(username: username, password: "password").save()
+                UserRole.create(userInstance,clientRole,true)
                 // Pour chaque utilisateur on boucle 5 fois
                 (1..5).each {
                     Integer index ->
