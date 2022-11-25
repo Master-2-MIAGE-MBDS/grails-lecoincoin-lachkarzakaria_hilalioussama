@@ -57,7 +57,7 @@
         </tr>
         </thead>
         <tbody>
-        <g:each var="a" in="${ Annonce.findAll() }">
+        <g:each var="a" in="${ Annonce.findByAuthor(sec.loggedInUserInfo()) }">
             <tr>
                 <th scope="row"><a href="/user/show/${a.getId()}" style="text-decoration: none;color: blue">${a.getTitle()}</a></th>
                 <td>${a.getDescription()}</td>
