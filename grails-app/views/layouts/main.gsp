@@ -35,7 +35,7 @@
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+            <div class="sidebar-brand-text mx-3"><asset:image src="logo/logo.png" class="logo"></asset:image></div>
         </a>
 
         <!-- Divider -->
@@ -51,16 +51,17 @@
         <!-- Divider -->
         <hr class="sidebar-divider">
 
+    <sec:ifLoggedIn>
         <!-- Heading -->
         <div class="sidebar-heading">
             liens utiles
         </div>
-
-    <li class="nav-item">
-        <g:link class="nav-link" controller="annonce" ><span>annonces</span></g:link>
-        <g:link class="nav-link" controller="user" ><span>Utilisateurs</span></g:link>
-        <g:link class="nav-link" controller="annonce" ><span>annonces</span></g:link>
-    </li>
+        <li class="nav-item">
+            <g:link class="nav-link" controller="annonce" ><span>annonces</span></g:link>
+            <sec:ifAnyGranted roles="ROLE_ADMIN , "><g:link class="nav-link" controller="user" ><span>Utilisateurs</span></g:link></sec:ifAnyGranted>
+            <g:link class="nav-link" controller="illustration" ><span>Illustrations</span></g:link>
+        </li>
+    </sec:ifLoggedIn>
     </ul>
     <!-- End of Sidebar -->
 

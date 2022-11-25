@@ -36,6 +36,12 @@
                     <br>
                 </g:each>
             </td>
+            <td>
+                <g:each var="ul" in="${ a.getIllustrations() }">
+                    <asset:image src="${ul.getAnnonce().getTitle()}"></asset:image>
+                    <br>
+                </g:each>
+            </td>
             <td><a href="/user/show/${a.getAuthor().getId()}" style="text-decoration: none;color: blue">${a.getAuthor()}</a></td>
         </tr>
     </g:each>
