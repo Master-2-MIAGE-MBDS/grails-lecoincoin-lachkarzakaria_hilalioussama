@@ -11,21 +11,23 @@
     <div class="nav" role="navigation">
         <ul>
             <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+<sec:ifAnyGranted roles="ROLE_ADMIN">
             <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+</sec:ifAnyGranted>
         </ul>
     </div>
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">filename</th>
-            <th scope="col">Annonce</th>
+            <th scope="col">#</th>
+            <th scope="col">Image</th>
         </tr>
         </thead>
         <tbody>
-        <g:each var="i" in="${ Illustration.getAll() }">
+        <g:each var="i" in="${ illustrationList }">
             <tr>
-                <td><a href="/illustration/show//${i.getId()}" style="text-decoration: none;color: blue">${i.getFilename()}</a></td>
-                <td><a href="/annonce/show/${i.getAnnonce().getId()}" style="text-decoration: none;color: blue">${i.getAnnonce()}</a></td>
+                <td><g:link controller="annonce" action="show" id="${i.getAnnonce().getTitle()}" style="text-decoration: none;color: blue">${i.annonce.getAuthor().username} ${i.annonce.getId()}</g:link></td>
+                <td><g:link controller="illustration" action="show" id="${i.getId()}" style="text-decoration: none;color: blue"><asset:image src="${i.getFilename()}"></asset:image></g:link></td>
             </tr>
         </g:each>
         </tbody>
