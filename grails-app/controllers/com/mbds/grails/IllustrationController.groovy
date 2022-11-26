@@ -5,7 +5,7 @@ import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
 
-@Secured(['ROLE_ADMIN','ROLE_MODO','ROLE_CLIENT'])
+@Secured(['ROLE_ADMIN','ROLE_MODO'])
 class IllustrationController {
 
     IllustrationService illustrationService
@@ -27,7 +27,7 @@ class IllustrationController {
     def show(Long id) {
         respond illustrationService.get(id)
     }
-
+    @Secured(['ROLE_ADMIN'],['ROLE_CLIENT'])
     def create() {
         respond new Illustration(params)
     }
