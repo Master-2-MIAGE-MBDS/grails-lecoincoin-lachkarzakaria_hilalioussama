@@ -9,9 +9,9 @@ import com.mbds.grails.UserRole
 class BootStrap {
 
     def init = { servletContext ->
-        def adminUserInstance = new User(username: "admin",password: "admin").save()
-        def modo1 = new User(username: "Zakaria",password: "modo").save()
-        def modo2 = new User(username: "Oussama",password: "modo").save()
+        def adminUserInstance = new User(username: "admin",password: "admin",email: "modo@gmail.com").save()
+        def modo1 = new User(username: "Zakaria",password: "modo",email: "lachkar99zakaria@gmail.com").save()
+        def modo2 = new User(username: "Oussama",password: "modo",email: "oussama@gmail.com").save()
         def adminRole = new Role(authority: "ROLE_ADMIN").save()
         def modoRole = new Role(authority: "ROLE_MODO").save()
         def clientRole = new Role(authority: "ROLE_CLIENT").save()
@@ -23,7 +23,7 @@ class BootStrap {
         ["Alice", "Bob", "Charly", "Denis", "Etienne"].each {
             String username ->
                 // On crée les utilisateurs associés
-                def userInstance = new User(username: username, password: "password").save()
+                def userInstance = new User(username: username, password: "password",email: "t@gmail.com").save()
                 UserRole.create(userInstance,clientRole,true)
                 // Pour chaque utilisateur on boucle 5 fois
                 (1..5).each {

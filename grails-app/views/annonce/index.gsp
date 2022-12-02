@@ -34,7 +34,7 @@
                 <td>${a.getPrice()}</td>
                 <td>
                     <g:each var="ul" in="${ a.getIllustrations() }">
-                        <a href="/illustration/show/${ul.getId()}" style="text-decoration: none;color: blue">${a.getTitle()}</a>
+                        <a href="/illustration/show/${ul.getId()}" style="text-decoration: none;color: blue"><asset:image src="${ul.getFilename()}"></asset:image></a>
                         <br>
                     </g:each>
                 </td>

@@ -11,7 +11,7 @@
     <div class="nav" role="navigation">
         <ul>
             <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-<sec:ifAnyGranted roles="ROLE_ADMIN">
+<sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_CLIENT">
             <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 </sec:ifAnyGranted>
         </ul>
@@ -19,7 +19,7 @@
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">#</th>
+            <th scope="col">Nom de l'annonce</th>
             <th scope="col">Image</th>
         </tr>
         </thead>

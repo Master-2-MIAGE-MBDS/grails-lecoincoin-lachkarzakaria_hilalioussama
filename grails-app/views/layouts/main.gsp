@@ -59,7 +59,7 @@
         <li class="nav-item">
             <g:link class="nav-link" controller="annonce" ><span>annonces</span></g:link>
             <sec:ifAnyGranted roles="ROLE_ADMIN , ROLE_MODO"><g:link class="nav-link" controller="user" ><span>Utilisateurs</span></g:link></sec:ifAnyGranted>
-            <g:link class="nav-link" controller="illustration" ><span>Illustrations</span></g:link>
+            <sec:ifAnyGranted roles="ROLE_ADMIN , ROLE_MODO"><g:link class="nav-link" controller="illustration" ><span>Illustrations</span></g:link></sec:ifAnyGranted>
         </li>
     </sec:ifLoggedIn>
     </ul>
@@ -84,7 +84,7 @@
                             <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
                         </a>
                         <ul class="dropdown-menu text-small">
-                            <li><g:link class="dropdown-item" controller="user"> Profile</g:link></li>
+                            <li><g:link class="dropdown-item" controller="profile"> Profile</g:link></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><g:link class="dropdown-item" controller="logout">Sign out</g:link></li>
                         </ul>

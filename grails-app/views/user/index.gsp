@@ -21,6 +21,7 @@
         <th scope="col">#</th>
         <th scope="col">Roles</th>
         <th scope="col">Username</th>
+        <th scope="col">Email</th>
         <th scope="col">enabled</th>
         <th scope="col">accountExpired</th>
         <th scope="col">passwordExpired</th>
@@ -33,6 +34,7 @@
             <th scope="row">${u.getId()}</th>
             <th scope="col">${u.getAuthorities().authority.join(',')}</th>
             <td><a href="/user/show/${u.getId()}" style="text-decoration: none;color: blue">${u.getUsername()}</a></td>
+            <th scope="col">${u.getEmail()}</th>
             <td>${u.getEnabled()}</td>
             <td>${u.getAccountExpired()}</td>
             <td>${u.getPasswordExpired()}</td>
