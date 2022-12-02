@@ -29,12 +29,12 @@
         <tbody>
         <g:each var="a" in="${ annonceList }">
             <tr>
-                <th scope="row"><a href="/user/show/${a.getId()}" style="text-decoration: none;color: blue">${a.getTitle()}</a></th>
+                <th scope="row"><g:link controller="annonce" action="show" id="${a.getId()}" style="text-decoration: none;color: blue">${a.getTitle()}</g:link></th>
                 <td>${a.getDescription()}</td>
                 <td>${a.getPrice()}</td>
                 <td>
                     <g:each var="ul" in="${ a.getIllustrations() }">
-                        <a href="/illustration/show/${ul.getId()}" style="text-decoration: none;color: blue"><asset:image src="${ul.getFilename()}"></asset:image></a>
+                        <g:link controller="illustration" action="show" id="${ul.getId()}" style="text-decoration: none;color: blue"><asset:image src="${ul.getFilename()}"></asset:image></g:link>
                         <br>
                     </g:each>
                 </td>

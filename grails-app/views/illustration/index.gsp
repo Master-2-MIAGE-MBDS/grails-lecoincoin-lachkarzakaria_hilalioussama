@@ -26,7 +26,7 @@
         <tbody>
         <g:each var="i" in="${ illustrationList }">
             <tr>
-                <td><g:link controller="annonce" action="show" id="${i.getAnnonce().getTitle()}" style="text-decoration: none;color: blue">${i.annonce.getAuthor().username} ${i.annonce.getId()}</g:link></td>
+                <td><g:link controller="annonce" action="show" id="${i.getAnnonce().id}" style="text-decoration: none;color: blue">${i.annonce.getAuthor().username} ${i.annonce.getId()}</g:link></td>
                 <td><g:link controller="illustration" action="show" id="${i.getId()}" style="text-decoration: none;color: blue"><asset:image src="${i.getFilename()}"></asset:image></g:link></td>
             </tr>
         </g:each>

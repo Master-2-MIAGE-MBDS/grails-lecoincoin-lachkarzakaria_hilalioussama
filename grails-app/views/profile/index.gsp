@@ -26,11 +26,6 @@
                     <div class="card-body">
                         <div class="d-flex flex-column align-items-center text-center">
                             <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
-                            <div class="mt-3">
-                                <h4><sec:loggedInUserInfo field="username"></sec:loggedInUserInfo></h4>
-                                <button class="btn btn-primary">Follow</button>
-                                <button class="btn btn-outline-primary">Message</button>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -70,24 +65,32 @@
                         <table class="table">
                             <thead>
                             <tr>
-                                <th scope="col">Nom de l'annonce</th>
-                                <th scope="col">Image</th>
+                                <th scope="col">Titre</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Active</th>
+                                <th scope="col">Illustrations</th>
+                                <th scope="col">Authon</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <g:each var="i" in="${ Illustration.findAllByAnnonce(user.annonces) }">
+                            <g:each var="a" in="${ this.user.getAnnonces().asList() }">
                                 <tr>
-                                    <td><g:link controller="annonce" action="show" id="${i.getAnnonce().getTitle()}" style="text-decoration: none;color: blue">${i.annonce.getAuthor().username} ${i.annonce.getId()}</g:link></td>
-                                    <td><g:link controller="illustration" action="show" id="${i.getId()}" style="text-decoration: none;color: blue"><asset:image src="${i.getFilename()}"></asset:image></g:link></td>
+                                    <th scope="row"><g:link controller="annonce" action="show" id="${a.getId()}" style="text-decoration: none;color: blue">${a.getTitle()}</g:link></th>
+                                    <td>${a.getDescription()}</td>
+                                    <td>${a.getPrice()}</td>
+                                    <td>
+                                        <g:each var="ul" in="${ a.getIllustrations() }">
+                                            <g:link controller="illustration" action="show" id="${ul.getId()}" style="text-decoration: none;color: blue"><asset:image src="${ul.getFilename()}"></asset:image></g:link>
+                                            <br>
+                                        </g:each>
+                                    </td>
+                                    <td><g:link controller="user" action="show" id="${a.getAuthor().getId()}" style="text-decoration: none;color: blue">${a.getAuthor().username}</g:link></td>
                                 </tr>
                             </g:each>
                             </tbody>
                         </table>
                     </div>
                 </div>
-
-
-
             </div>
         </div>
 

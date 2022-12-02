@@ -6,6 +6,14 @@
         <title><g:message code="default.show.label" args="[entityName]" /></title>
     </head>
     <body>
+    <a href="#show-annonce" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
+    <div class="nav" role="navigation">
+        <ul>
+            <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+            <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
+            <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+        </ul>
+    </div>
     <div class="container mt-5 mb-5">
         <div class="row d-flex justify-content-center">
             <div class="col-md-10">
@@ -13,7 +21,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="images p-3">
-                                <div class="text-center p-4"> <img id="main-image" src="https://i.imgur.com/Dhebu4F.jpg" width="250" /> </div>
+                                <div class="text-center p-4"><asset:image src="${this.annonce.getIllustrations().find().getFilename()} " id="main-image" width="250"></asset:image></div>
                                 <div class="thumbnail text-center">
                                     <g:each var="ul" in="${ this.annonce.getIllustrations() }">
                                         <asset:image onclick="change_image(this)" src="${ul.getFilename()}"></asset:image>
@@ -37,6 +45,14 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div id="show-annonce" class="content scaffold-show" role="main">
+        <g:form resource="${this.annonce}" method="DELETE">
+            <fieldset class="buttons">
+                <g:link class="edit" action="edit" resource="${this.annonce}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
+                <input class="delete" type="submit" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+            </fieldset>
+        </g:form>
     </div>
     </body>
 </html>
