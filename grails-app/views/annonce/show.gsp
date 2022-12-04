@@ -21,7 +21,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="images p-3">
-                                <div class="text-center p-4"><asset:image src="${this.annonce.getIllustrations().find().getFilename()} " id="main-image" width="250"></asset:image></div>
+                                <div class="text-center p-4"></div>
                                 <div class="thumbnail text-center">
                                     <g:each var="ul" in="${ this.annonce.getIllustrations() }">
                                         <asset:image onclick="change_image(this)" src="${ul.getFilename()}"></asset:image>
@@ -39,6 +39,7 @@
                                     <div class="price d-flex flex-row align-items-center"> <span class="act-price">$${this.annonce.price}</span>
                                     </div>
                                 </div>
+                                <p class="about">${this.annonce.description}</p>
                             </div>
                         </div>
                     </div>

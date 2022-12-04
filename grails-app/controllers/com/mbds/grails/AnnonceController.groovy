@@ -5,14 +5,20 @@ import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
 
-@Secured(['ROLE_ADMIN','ROLE_MODO','ROLE_CLIENT'])
+import grails.plugin.springsecurity.SpringSecurityService
+import grails.plugin.springsecurity.annotation.Secured
+import grails.validation.ValidationException
+import static org.springframework.http.HttpStatus.*
+
+@Secured('ROLE_ADMIN')
 class AnnonceController {
 
     AnnonceService annonceService
     SpringSecurityService springSecurityService
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [save: "POST"]
 
+    @Secured(['ROLE_ADMIN', 'ROLE_CLIENT'])
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         User user=springSecurityService.getCurrentUser()
@@ -25,11 +31,11 @@ class AnnonceController {
     }
 
     def show(Long id) {
-        respond annonceService.get(id)
+        respond annonceService.get(id), model: [userList: User.list()]
     }
 
     def create() {
-        respond new Annonce(params)
+        respond new Annonce(params), model: [userList: User.list()]
     }
 
     def save(Annonce annonce) {
@@ -41,7 +47,7 @@ class AnnonceController {
         try {
             annonceService.save(annonce)
         } catch (ValidationException e) {
-            respond annonce.errors, view:'create'
+            respond annonce.errors, view: 'create'
             return
         }
 
@@ -55,10 +61,16 @@ class AnnonceController {
     }
 
     def edit(Long id) {
-        respond annonceService.get(id)
+        respond annonceService.get(id), model: [userList: User.list()]
     }
 
-    def update(Annonce annonce) {
+    def update() {
+        def annonce = Annonce.get(params.id)
+        annonce.title = params.title
+        annonce.description = params.description
+        annonce.price = Float.parseFloat(params.price)
+        annonce.author = User.get(params.author.id)
+
         if (annonce == null) {
             notFound()
             return
@@ -66,8 +78,12 @@ class AnnonceController {
 
         try {
             annonceService.save(annonce)
+            if (request.getFiles("files")[0].filename != "")
+                myService.uploadFiles(annonce, request.getFiles("files"))
         } catch (ValidationException e) {
-            respond annonce.errors, view:'edit'
+            println annonce.errors
+//            respond annonce.errors, view: 'edit'
+            redirect action: "edit", id: annonce.id
             return
         }
 
@@ -76,7 +92,7 @@ class AnnonceController {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'annonce.label', default: 'Annonce'), annonce.id])
                 redirect annonce
             }
-            '*'{ respond annonce, [status: OK] }
+            '*' { respond annonce, [status: OK] }
         }
     }
 
@@ -88,13 +104,17 @@ class AnnonceController {
 
         annonceService.delete(id)
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'annonce.label', default: 'Annonce'), id])
-                redirect action:"index", method:"GET"
-            }
-            '*'{ render status: NO_CONTENT }
-        }
+        flash.message = message(code: 'default.deleted.message', args: [message(code: 'annonce.label', default: 'Annonce'), id])
+        redirect action: "index", method: "GET"
+    }
+
+    def deleteIllu(Long id) {
+        def illustrationInstance = Illustration.get(id)
+        def annonceId = illustrationInstance.annonce.id
+        def annonceInstance = Annonce.get(annonceId)
+        annonceInstance.removeFromIllustrations(illustrationInstance)
+        annonceInstance.save(flush: true)
+        redirect action: "edit", id: annonceId
     }
 
     protected void notFound() {
@@ -103,7 +123,17 @@ class AnnonceController {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'annonce.label', default: 'Annonce'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*'{ render status: NOT_FOUND }
+            '*' { render status: NOT_FOUND }
         }
     }
+
+
+    public static File makeDirectory(String path){
+        File file = new File(path)
+        if (!file.exists()){
+            file.mkdirs()
+        }
+        return file
+    }
+
 }

@@ -69,7 +69,6 @@
                                 <th scope="col">Description</th>
                                 <th scope="col">Active</th>
                                 <th scope="col">Illustrations</th>
-                                <th scope="col">Authon</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -84,7 +83,6 @@
                                             <br>
                                         </g:each>
                                     </td>
-                                    <td><g:link controller="user" action="show" id="${a.getAuthor().getId()}" style="text-decoration: none;color: blue">${a.getAuthor().username}</g:link></td>
                                 </tr>
                             </g:each>
                             </tbody>

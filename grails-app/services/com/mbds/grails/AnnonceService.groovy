@@ -14,5 +14,4 @@ interface AnnonceService {
     void delete(Serializable id)
 
     Annonce save(Annonce annonce)
-
 }
